@@ -30,12 +30,13 @@ def create_sources_string(source_urls: Set[str]) -> str:
 if prompt:
     with st.spinner("Generating response.."):
         generated_response = run_llm(query=prompt)
+
         sources = set(
             [doc.metadata["source"] for doc in generated_response["source_documents"]]
         )
 
         formatted_response = (
-            f"{generated_response['result']} \n\n {create_sources_string(sources)}"
+            f"{generated_response['answer']} \n\n {create_sources_string(sources)}"
         )
 
         st.session_state["user_prompt_history"].append(prompt)
