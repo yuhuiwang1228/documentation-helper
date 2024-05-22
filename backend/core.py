@@ -9,8 +9,7 @@ from pinecone import Pinecone
 
 from consts import INDEX_NAME
 
-# which streamlit
-# /c/Users/WYH/.virtualenvs/documentation-helper-XJYCo1X0/Scripts/streamlit run main.py
+# streamlit run main.py
 
 pc = Pinecone(api_key=os.environ["PINECONE_API_KEY"])
 
