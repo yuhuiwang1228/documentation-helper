@@ -4,20 +4,19 @@ from typing import Any, List, Dict
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import ConversationalRetrievalChain
-from langchain.vectorstores import Pinecone
-import pinecone
+from langchain_community.vectorstores.pinecone import Pinecone as PineconeLangChain
+from pinecone import Pinecone
 
 from consts import INDEX_NAME
 
-pinecone.init(
-    api_key=os.environ["PINECONE_API_KEY"],
-    environment=os.environ["PINECONE_ENVIRONMENT_REGION"],
-)
+# which streamlit
+# /c/Users/WYH/.virtualenvs/documentation-helper-XJYCo1X0/Scripts/streamlit run main.py
 
+pc = Pinecone(api_key=os.environ["PINECONE_API_KEY"])
 
 def run_llm(query: str, chat_history: List[Dict[str, Any]] = []) -> Any:
     embeddings = OpenAIEmbeddings()
-    docsearch = Pinecone.from_existing_index(
+    docsearch = PineconeLangChain.from_existing_index(
         index_name=INDEX_NAME, embedding=embeddings
     )
     chat = ChatOpenAI(verbose=True, temperature=0)
